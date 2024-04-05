@@ -19,7 +19,7 @@ func simulateClusterState(clusterGaugeVec *prometheus.GaugeVec) {
 			}
 			clusterGaugeVec.With(prometheus.Labels{"cluster_id": string('0' + rune(i))}).Set(float64(state))
 		}
-		time.Sleep(10 * time.Second)
+		time.Sleep(60 * time.Second) // Обновляем значение каждую минуту
 	}
 }
 
@@ -33,7 +33,7 @@ func simulateNginxStatus(nginxStatusVec *prometheus.CounterVec) {
 			nginxStatusVec.With(prometheus.Labels{"status_code": code}).Add(float64(counts[i]))
 		}
 
-		time.Sleep(10 * time.Second)
+		time.Sleep(60 * time.Second) // Обновляем значение каждую минуту
 	}
 }
 
