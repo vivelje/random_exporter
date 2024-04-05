@@ -27,10 +27,18 @@ func simulateNginxStatus(nginxStatusVec *prometheus.CounterVec) {
 	// Рандомизируем статусы nginx
 	for {
 		statusCodes := []string{"200", "201", "400", "500"}
-		counts := []int{rand.Intn(100) + 1, rand.Intn(100) + 1, rand.Intn(10), rand.Intn(5)}
 
-		for i, code := range statusCodes {
-			nginxStatusVec.With(prometheus.Labels{"status_code": code}).Add(float64(counts[i]))
+		for _, code := range statusCodes {
+			var count int
+			switch code {
+			case "200", "201":
+				count = rand.Intn(100) + 1 // Значения в диапазоне от 1 до 100
+			case "400":
+				count = rand.Intn(10) // Значения в диапазоне от 0 до 10
+			case "500":
+				count = rand.Intn(2) + 1 // Значения либо 1, либо 2
+			}
+			nginxStatusVec.With(prometheus.Labels{"status_code": code}).Add(float64(count))
 		}
 
 		time.Sleep(60 * time.Second) // Обновляем значение каждую минуту
