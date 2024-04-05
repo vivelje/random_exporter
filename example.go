@@ -1,5 +1,6 @@
 package main
 
+/*
 import (
 	"log"
 	"net/http"
@@ -47,3 +48,4 @@ func main() {
 	http.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{Registry: reg}))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+*/
